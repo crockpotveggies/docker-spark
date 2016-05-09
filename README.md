@@ -1,21 +1,18 @@
 Apache Spark on Docker
 ==========
 
-[![DockerPulls](https://img.shields.io/docker/pulls/sequenceiq/spark.svg)](https://registry.hub.docker.com/u/sequenceiq/spark/)
-[![DockerStars](https://img.shields.io/docker/stars/sequenceiq/spark.svg)](https://registry.hub.docker.com/u/sequenceiq/spark/)
 
-
-This repository contains a Docker file to build a Docker image with Apache Spark. This Docker image depends on our previous [Hadoop Docker](https://github.com/sequenceiq/hadoop-docker) image, available at the SequenceIQ [GitHub](https://github.com/sequenceiq) page.
+This repository contains a Docker file to build a Docker image with Apache Spark. This Docker image depends on SequenceIQ's previous [Hadoop Docker](https://github.com/sequenceiq/hadoop-docker) image, available at the SequenceIQ [GitHub](https://github.com/sequenceiq) page.
 The base Hadoop Docker image is also available as an official [Docker image](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/).
 
 ##Pull the image from Docker Repository
 ```
-docker pull sequenceiq/spark:1.6.0
+docker pull bernieai/spark:latest
 ```
 
 ## Building the image
 ```
-docker build --rm -t sequenceiq/spark:1.6.0 .
+docker build --rm -t bernieai/spark:latest .
 ```
 
 ## Running the image
@@ -24,16 +21,16 @@ docker build --rm -t sequenceiq/spark:1.6.0 .
 * in your /etc/hosts file add $(boot2docker ip) as host 'sandbox' to make it easier to access your sandbox UI
 * open yarn UI ports when running container
 ```
-docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox sequenceiq/spark:1.6.0 bash
+docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox bernieai/spark:latest bash
 ```
 or
 ```
-docker run -d -h sandbox sequenceiq/spark:1.6.0 -d
+docker run -d -h sandbox bernieai/spark:latest -d
 ```
 
 ## Versions
 ```
-Hadoop 2.6.0 and Apache Spark v1.6.0 on Centos 
+Hadoop 2.6.0 and Apache Spark v1.6.1 on Centos 
 ```
 
 ## Testing
