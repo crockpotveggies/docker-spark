@@ -7,12 +7,12 @@ The base Hadoop Docker image is also available as an official [Docker image](htt
 
 ##Pull the image from Docker Repository
 ```
-docker pull bernieai/spark:latest
+docker pull bernieai/docker-spark:latest
 ```
 
 ## Building the image
 ```
-docker build --rm -t bernieai/spark:latest .
+docker build --rm -t bernieai/docker-spark:latest .
 ```
 
 ## Running the image
@@ -21,11 +21,11 @@ docker build --rm -t bernieai/spark:latest .
 * in your /etc/hosts file add $(boot2docker ip) as host 'sandbox' to make it easier to access your sandbox UI
 * open yarn UI ports when running container
 ```
-docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox bernieai/spark:latest bash
+docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox bernieai/docker-spark:latest bash
 ```
 or
 ```
-docker run -d -h sandbox bernieai/spark:latest -d
+docker run -d -h sandbox bernieai/docker-spark:latest -d
 ```
 
 ## Versions
