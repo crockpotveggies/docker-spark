@@ -1,9 +1,9 @@
 Apache Spark on Docker
 ==========
 
+Published on [Docker Hub](https://hub.docker.com/r/bernieai/docker-spark/).
 
-This repository contains a Docker file to build a Docker image with Apache Spark. This Docker image depends on [docker-hadoop](https://github.com/sequenceiq/hadoop-docker), available at [GitHub](https://github.com/crockpotveggies/docker-hadoop) page.
-The base Hadoop Docker image is also available as an official [Docker image](https://registry.hub.docker.com/u/bernieai/docker-hadoop/).
+This repository contains a Docker file to build a Docker image with Apache Spark using YARN and includes Hadoop support. This image is originally based on SequenceIQ's [hadoop-docker](https://github.com/sequenceiq/hadoop-docker) and migrated to Ubuntu 14.04.4, available on [GitHub](https://github.com/crockpotveggies/docker-hadoop). The base Hadoop Docker image is also available as a published [Docker image](https://hub.docker.com/r/bernieai/docker-hadoop/).
 
 ### Pull the image from Docker Repository
 ```
@@ -29,22 +29,21 @@ When booting up a slave/worker:
 ```
 docker run -it -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h slave1.cluster bernieai/docker-spark:latest bash
 ```
-
-Or simply:
+or
 ```
 docker run -d -h sandbox bernieai/docker-spark:latest -d
 ```
 
 ### Versions
 ```
-Hadoop 2.6.0 and Apache Spark v1.6.1 on Centos 
+Hadoop 2.6.0 and Apache Spark v1.6.1 on Ubuntu 14.04.4 
 ```
 
-## Testing
+### Testing
 
 There are two deploy modes that can be used to launch Spark applications on YARN.
 
-### YARN-client mode
+#### YARN-client mode
 
 In yarn-client mode, the driver runs in the client process, and the application master is only used for requesting resources from YARN.
 
