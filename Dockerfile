@@ -1,5 +1,5 @@
-FROM sequenceiq/hadoop-docker:2.6.0
-MAINTAINER SequenceIQ
+FROM bernieai/hadoop-docker:2.6.0
+MAINTAINER crockpotveggies
 
 # set nameserver
 RUN cat /etc/resolv.conf
