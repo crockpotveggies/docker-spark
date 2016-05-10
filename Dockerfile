@@ -1,6 +1,15 @@
 FROM sequenceiq/hadoop-docker:2.6.0
 MAINTAINER SequenceIQ
 
+# set nameserver
+RUN cat /etc/resolv.conf
+RUN echo "search dns.google.com\nnameserver 8.8.8.8" > /etc/resolv.conf
+RUN cat /etc/resolv.conf
+
+# install dependencies
+RUN yum -y update
+RUN yum -y install git
+
 # install blas
 RUN mkdir ~/src && cd ~/src && \
   git clone https://github.com/xianyi/OpenBLAS && \
