@@ -20,19 +20,21 @@ docker build --rm -t bernieai/docker-spark:latest .
 * if using boot2docker make sure your VM has more than 2GB memory
 * in your /etc/hosts file make sure you define 'master.cluster' to make it easier to access your sandbox UI on the master node and so slaves can access the ResourceManager
 
-When booting up a master node with ResourceManager and NameNode
+When booting up a master node with ResourceManager and NameNode:
 ```
-docker run -it -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h master.cluster bernieai/docker-spark:latest bash
+docker run -dit -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h master.cluster bernieai/docker-spark:latest bash
 ```
 
 When booting up a slave/worker:
 ```
-docker run -it -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h slave1.cluster bernieai/docker-spark:latest bash
+docker run -dit -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h slave1.cluster bernieai/docker-spark:latest bash
 ```
-or
+
+or daemonize it with SSH:
 ```
 docker run -d -h sandbox bernieai/docker-spark:latest -d
 ```
+
 
 ### Versions
 ```
