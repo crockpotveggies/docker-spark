@@ -2,7 +2,16 @@ FROM sequenceiq/hadoop-docker:2.6.0
 MAINTAINER SequenceIQ
 
 # install blas
-RUN yum -y install libopenblas-devel liblapack-devel
+RUN mkdir ~/src && cd ~/src && \
+  git clone https://github.com/xianyi/OpenBLAS && \
+  cd ~/src/OpenBLAS && \
+  make FC=gfortran && \
+  make PREFIX=/opt/OpenBLAS install
+
+# now update the library system:
+RUN echo /opt/OpenBLAS/lib >  /etc/ld.so.conf.d/openblas.conf
+RUN ldconfig
+ENV LD_LIBRARY_PATH=/opt/OpenBLAS/lib:$LD_LIBRARY_PATH
 
 # support for Hadoop 2.6.0
 RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz | tar -xz -C /usr/local/
