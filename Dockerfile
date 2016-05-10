@@ -1,31 +1,38 @@
-FROM bernieai/hadoop-docker:2.6.0
+FROM bernieai/docker-hadoop:2.6.0
 MAINTAINER crockpotveggies
 
-# set nameserver
-RUN cat /etc/resolv.conf
-RUN echo "search dns.google.com\nnameserver 8.8.8.8" > /etc/resolv.conf
-RUN cat /etc/resolv.conf
+# variables
+ENV SPARK_VERSION      1.6.1
+ENV SCALA_VERSION      2.10.6
+ENV SPARK_BIN_VERSION  $SPARK_VERSION-bin-hadoop2.6
+ENV SPARK_HOME         /usr/local/spark
+ENV SCALA_HOME         /usr/local/scala
+ENV PATH               $PATH:$SPARK_HOME/bin:$SCALA_HOME/bin
+
 
 # install dependencies
-RUN yum -y update
-RUN yum -y install git
+RUN apt-get install -y git
+RUN locale-gen en_US en_US.UTF-8
 
-# install blas
-RUN mkdir ~/src && cd ~/src && \
-  git clone https://github.com/xianyi/OpenBLAS && \
-  cd ~/src/OpenBLAS && \
-  make FC=gfortran && \
-  make PREFIX=/opt/OpenBLAS install
+# Install OpenBLAS
+RUN apt-get install -y libopenblas-dev
 
 # now update the library system:
 RUN echo /opt/OpenBLAS/lib >  /etc/ld.so.conf.d/openblas.conf
 RUN ldconfig
 ENV LD_LIBRARY_PATH=/opt/OpenBLAS/lib:$LD_LIBRARY_PATH
 
-# support for Hadoop 2.6.0
-RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz | tar -xz -C /usr/local/
-RUN cd /usr/local && ln -s spark-1.6.1-bin-hadoop2.6 spark
-ENV SPARK_HOME /usr/local/spark
+# Install Scala
+RUN wget http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz && \
+    tar -zxf /scala-$SCALA_VERSION.tgz -C /usr/local/ && \
+    ln -s /usr/local/scala-$SCALA_VERSION $SCALA_HOME && \
+    rm /scala-$SCALA_VERSION.tgz
+
+# install Spark for Hadoop 2.6.0
+RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_BIN_VERSION.tgz && \
+    tar -zxf /spark-$SPARK_BIN_VERSION.tgz -C /usr/local/ && \
+    ln -s /usr/local/spark-$SPARK_BIN_VERSION $SPARK_HOME && \
+    rm /spark-$SPARK_BIN_VERSION.tgz
 RUN mkdir $SPARK_HOME/yarn-remote-client
 ADD yarn-remote-client $SPARK_HOME/yarn-remote-client
 
