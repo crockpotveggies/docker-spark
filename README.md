@@ -5,30 +5,37 @@ Apache Spark on Docker
 This repository contains a Docker file to build a Docker image with Apache Spark. This Docker image depends on [docker-hadoop](https://github.com/sequenceiq/hadoop-docker), available at [GitHub](https://github.com/crockpotveggies/docker-hadoop) page.
 The base Hadoop Docker image is also available as an official [Docker image](https://registry.hub.docker.com/u/bernieai/docker-hadoop/).
 
-##Pull the image from Docker Repository
+### Pull the image from Docker Repository
 ```
 docker pull bernieai/docker-spark:latest
 ```
 
-## Building the image
+### Building the image
 ```
 docker build --rm -t bernieai/docker-spark:latest .
 ```
 
-## Running the image
+### Running the image
 
 * if using boot2docker make sure your VM has more than 2GB memory
-* in your /etc/hosts file add $(boot2docker ip) as host 'sandbox' to make it easier to access your sandbox UI
-* open yarn UI ports when running container
+* in your /etc/hosts file make sure you define 'master.cluster' to make it easier to access your sandbox UI on the master node and so slaves can access the ResourceManager
+
+When booting up a master node with ResourceManager and NameNode
 ```
-docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox bernieai/docker-spark:latest bash
+docker run -it -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -h master.cluster bernieai/docker-spark:latest bash
 ```
-or
+
+When booting up a slave/worker:
+```
+docker run -it -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 bernieai/docker-spark:latest bash
+```
+
+Or simply:
 ```
 docker run -d -h sandbox bernieai/docker-spark:latest -d
 ```
 
-## Versions
+### Versions
 ```
 Hadoop 2.6.0 and Apache Spark v1.6.1 on Centos 
 ```
