@@ -1,6 +1,9 @@
 FROM sequenceiq/hadoop-docker:2.6.0
 MAINTAINER SequenceIQ
 
+# install blas
+RUN yum -y install libopenblas-devel liblapack-devel
+
 # support for Hadoop 2.6.0
 RUN curl -s http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz | tar -xz -C /usr/local/
 RUN cd /usr/local && ln -s spark-1.6.1-bin-hadoop2.6 spark
