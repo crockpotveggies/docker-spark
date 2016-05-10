@@ -3,8 +3,13 @@
 <configuration>
   <property>
       <name>fs.default.name</name>
-      <value>hdfs://sandbox:9000</value>
+      <value>hdfs://master.cluster:9000</value>
   </property>
+    <property>
+      <name>fs.default.name</name>
+      <value>hdfs://master.cluster:9000</value>
+      <description>NameNode URI</description>
+    </property>
   <property>
       <name>dfs.client.use.legacy.blockreader</name>
       <value>true</value>
