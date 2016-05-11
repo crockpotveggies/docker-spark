@@ -11,7 +11,7 @@ ENV PATH               $PATH:$SPARK_HOME/bin:$SCALA_HOME/bin
 
 
 # install dependencies
-RUN apt-get install -y git
+RUN apt-get install -y git openssh-server openssh-client
 RUN locale-gen en_US en_US.UTF-8
 
 # Install OpenBLAS
@@ -45,6 +45,8 @@ ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
 COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+#ADD yarn-remote-client/slaves $HADOOP_PREFIX/etc/hadoop/slaves
 
 # expose ports for Spark and Hadoop systems
 EXPOSE 8088 8042 4040

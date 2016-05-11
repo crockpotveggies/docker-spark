@@ -15,17 +15,29 @@ docker pull bernieai/docker-spark:latest
 docker build --rm -t bernieai/docker-spark:latest .
 ```
 
-## Running the image
+### Pre-flight setup
+Note that you will have to address some prerequisites in Hadoop in order to deploy this image correctly. You will designate a "master" node (the container hostname must be `master.cluster`) that will need privileges to SSH into each slave node. This is best achieved using key-based authentication. Although some instructions [here](https://allthingshadoop.com/2010/04/20/hadoop-cluster-setup-ssh-key-authentication/) will give you background on how to operate this manually, the base image for **docker-hadoop** automatically generates a key for you.
+
+Since a public key is already available on the master node, you will need to copy its contents to the `~/.ssh/authorized_keys` file on other machines. Once this is completed, your cluster will be ready to log into other machines. Remember that if you restart your master node, your keys may regenerate themselves and you'll need to copy them again.
+
+### Running the image
 
 * if using boot2docker make sure your VM has more than 2GB memory
-* in your /etc/hosts file add $(boot2docker ip) as host 'sandbox' to make it easier to access your sandbox UI
-* open yarn UI ports when running container
+* in your /etc/hosts file make sure you define 'master.cluster' to make it easier to access your sandbox UI on the master node and so slaves can access the ResourceManager
+
+When booting up a master node with ResourceManager and NameNode:
 ```
-docker run -it -p 8088:8088 -p 8042:8042 -p 4040:4040 -h sandbox bernieai/docker-spark:latest bash
+docker run -dit -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h master.cluster bernieai/docker-spark:latest -d
 ```
-or
+
+When booting up a slave/worker:
 ```
-docker run -d -h sandbox bernieai/docker-spark:latest -d
+docker run -dit -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h slave1.cluster bernieai/docker-spark:latest -d
+```
+
+Once your nodes are up and running, you can then login via SSH:
+```
+ssh -p 2122 user@container_ip
 ```
 
 ## Versions
