@@ -1,16 +1,16 @@
 Apache Spark on Docker
 ==========
 
+Published on [Docker Hub](https://hub.docker.com/r/bernieai/docker-spark/).
 
-This repository contains a Docker file to build a Docker image with Apache Spark. This Docker image depends on SequenceIQ's previous [Hadoop Docker](https://github.com/sequenceiq/hadoop-docker) image, available at the SequenceIQ [GitHub](https://github.com/sequenceiq) page.
-The base Hadoop Docker image is also available as an official [Docker image](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/).
+This repository contains a Docker file to build a Docker image with Apache Spark using YARN and includes Hadoop support. This image is originally based on SequenceIQ's [hadoop-docker](https://github.com/sequenceiq/hadoop-docker) and migrated to Ubuntu 14.04.4, available on [GitHub](https://github.com/crockpotveggies/docker-hadoop). The base Hadoop Docker image is also available as a published [Docker image](https://hub.docker.com/r/bernieai/docker-hadoop/).
 
-##Pull the image from Docker Repository
+### Pull the image from Docker Repository
 ```
 docker pull bernieai/docker-spark:latest
 ```
 
-## Building the image
+### Building the image
 ```
 docker build --rm -t bernieai/docker-spark:latest .
 ```
@@ -40,16 +40,17 @@ Once your nodes are up and running, you can then login via SSH:
 ssh -p 2122 user@container_ip
 ```
 
-## Versions
+
+### Versions
 ```
-Hadoop 2.6.0 and Apache Spark v1.6.1 on Centos 
+Hadoop 2.6.0 and Apache Spark v1.6.1 on Ubuntu 14.04.4 
 ```
 
-## Testing
+### Testing
 
 There are two deploy modes that can be used to launch Spark applications on YARN.
 
-### YARN-client mode
+#### YARN-client mode
 
 In yarn-client mode, the driver runs in the client process, and the application master is only used for requesting resources from YARN.
 

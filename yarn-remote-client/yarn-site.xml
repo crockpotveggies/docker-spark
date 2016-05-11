@@ -1,23 +1,23 @@
 <configuration>
   <property>
     <name>yarn.resourcemanager.scheduler.address</name>
-    <value>sandbox:8030</value>
+    <value>master.cluster:8030</value>
   </property>
   <property>
     <name>yarn.resourcemanager.address</name>
-    <value>sandbox:8032</value>
+    <value>master.cluster:8032</value>
   </property>
   <property>
     <name>yarn.resourcemanager.webapp.address</name>
-    <value>sandbox:8088</value>
+    <value>master.cluster:8088</value>
   </property>
   <property>
     <name>yarn.resourcemanager.resource-tracker.address</name>
-    <value>sandbox:8031</value>
+    <value>master.cluster:8031</value>
   </property>
   <property>
     <name>yarn.resourcemanager.admin.address</name>
-    <value>sandbox:8033</value>
+    <value>master.cluster:8033</value>
   </property>
   <property>
       <name>yarn.application.classpath</name>
