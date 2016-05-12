@@ -33,13 +33,13 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_BIN_VERSION.tgz && \
     tar -zxf /spark-$SPARK_BIN_VERSION.tgz -C /usr/local/ && \
     ln -s /usr/local/spark-$SPARK_BIN_VERSION $SPARK_HOME && \
     rm /spark-$SPARK_BIN_VERSION.tgz
-RUN mkdir $SPARK_HOME/yarn-remote-client
+#RUN mkdir $SPARK_HOME/yarn-remote-client
 ADD yarn-remote-client $SPARK_HOME/yarn-remote-client
-
-RUN $BOOTSTRAP && $HADOOP_PREFIX/bin/hadoop dfsadmin -safemode leave && $HADOOP_PREFIX/bin/hdfs dfs -put $SPARK_HOME-1.6.1-bin-hadoop2.6/lib /spark
 
 ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
+
+RUN $BOOTSTRAP && $HADOOP_PREFIX/bin/hadoop dfsadmin -safemode leave && hadoop fs -put $SPARK_HOME-$SPARK_VERSION-bin-hadoop2.6/lib /spark
 
 # update boot script
 COPY bootstrap.sh /etc/bootstrap.sh
