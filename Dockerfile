@@ -34,6 +34,8 @@ RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-$SPARK_BIN_VERSION.tgz && \
     ln -s /usr/local/spark-$SPARK_BIN_VERSION $SPARK_HOME && \
     rm /spark-$SPARK_BIN_VERSION.tgz
 ADD yarn-remote-client $SPARK_HOME/yarn-remote-client
+COPY yarn-remote-client/core-site.xml $HADOOP_PREFIX/etc/hadoop/core-site.xml
+COPY yarn-remote-client/yarn-site.xml $HADOOP_PREFIX/etc/hadoop/yarn-site.xml
 
 ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 ENV PATH $PATH:$SPARK_HOME/bin:$HADOOP_PREFIX/bin
