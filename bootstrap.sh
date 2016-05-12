@@ -32,6 +32,9 @@ done
 echo "Writing env variables to bash profile"
 export >> /root/.bash_profile
 
+# fix annoying vi problem
+echo "set nocompatible" >> ~/.vimrc
+
 # let the user know what their key is
 echo "####################"
 echo "Printing private key"
