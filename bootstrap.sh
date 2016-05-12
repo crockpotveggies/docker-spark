@@ -46,6 +46,15 @@ echo "Printing public key"
 echo "###################"
 cat ~/.ssh/id_rsa.pub
 
+# if a master IP is in environment
+if [[ "$MASTER_IP" == "" ]];
+then
+  echo "WARNING: no MASTER_IP env variable in scope, IP will not be autowritten to hosts"
+else
+  echo "Adding cluster master IP to hosts: $MASTER_IP"
+  sudo echo "$MASTER_IP master.cluster" >> /etc/hosts
+fi
+
 # start up required services
 /usr/sbin/sshd
 while true; do echo up and running; sleep 1; done

@@ -47,9 +47,7 @@ COPY bootstrap.sh /etc/bootstrap.sh
 RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 
-#ADD yarn-remote-client/slaves $HADOOP_PREFIX/etc/hadoop/slaves
-
 # expose ports for Spark and Hadoop systems
-EXPOSE 8088 8042 4040 30000-50000
+EXPOSE 8088 8042 4040
 
 ENTRYPOINT ["/etc/bootstrap.sh"]

@@ -39,12 +39,12 @@ You will want to follow these general steps to set up your cluster:
 
 When booting up a master node with ResourceManager and NameNode:
 ```
-docker run -dit -p 30000-50000:30000-50000 -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h master.cluster bernieai/docker-spark:latest -d
+docker run -dit -e SLAVE_SIZE=2 -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h master.cluster bernieai/docker-spark:latest -d
 ```
 
 When booting up a slave/worker:
 ```
-docker run -dit -p 30000-50000:30000-50000 -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h slave1.cluster bernieai/docker-spark:latest -d
+docker run -dit -e MASTER_IP=x.x.x.x -p 19888:19888 -p 8030:8030 -p 8031:8031 -p 8032:8032 -p 8033:8033 -p 8040:8040 -p 8042:8042 -p 8088:8088 -p 4040:4040 -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075 -p 50090:50090 -p 8020:8020 -p 9000:9000 -p 2122:2122 -p 49707:49707 -h slave1.cluster bernieai/docker-spark:latest -d
 ```
 
 Once your nodes are up and running, you can then login via SSH:
