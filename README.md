@@ -20,6 +20,18 @@ Note that you will have to address some prerequisites in Hadoop in order to depl
 
 Since a public key is already available on the master node, you will need to copy its contents to the `~/.ssh/authorized_keys` file on other machines. Once this is completed, your cluster will be ready to log into other machines. Remember that if you restart your master node, your keys may regenerate themselves and you'll need to copy them again.
 
+
+**This image comes with a default key.** You will find it printed in the logs via `docker logs container_id`. It is strongly suggested you remove the default key and replace it with your own. You will need this key in order to SSH into the container.
+
+You will want to follow these general steps to set up your cluster:
+* Set up all of your slaves *before* starting the master
+* In one of your slaves, visit the logs to obtain your SSH key, and save it where you will need it
+* Start the master container
+* **Optional:** swap out the default SSH keys with your own
+* Add all slaves to the master's `/etc/hosts`
+* Check that the slaves listed in `$HADOOP_PREFIX/etc/hadoop/slaves` are up-to-date
+* In master, start DFS and YARN using `$HADOOP_PREFIX/sbin/start-yarn.sh; $HADOOP_PREFIX/sbin/start-dfs.sh` 
+
 ### Running the image
 
 * if using boot2docker make sure your VM has more than 2GB memory
