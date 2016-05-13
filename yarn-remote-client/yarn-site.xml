@@ -17,7 +17,7 @@
     </property>
     <property>
       <name>yarn.resourcemanager.webapp.address</name>
-      <value>master.cluster:8088</value>
+      <value>0.0.0.0:8088</value>
     </property>
     <property>
       <name>yarn.resourcemanager.resource-tracker.address</name>
