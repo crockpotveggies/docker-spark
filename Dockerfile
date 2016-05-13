@@ -48,6 +48,6 @@ RUN chown root.root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 
 # expose ports for Spark and Hadoop systems
-EXPOSE 8088 8042 4040
+EXPOSE 8088 8042 4040 9000 35000-49000
 
 ENTRYPOINT ["/etc/bootstrap.sh"]

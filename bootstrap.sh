@@ -22,7 +22,7 @@ N=$SLAVE_SIZE
 # change the slaves file
 echo "master.cluster" > $HADOOP_PREFIX/etc/hadoop/slaves
 i=1
-while [ $i -lt $N ]
+while [ $i -le $N ]
 do
   echo "slave$i.cluster" >> $HADOOP_PREFIX/etc/hadoop/slaves
   ((i++))
